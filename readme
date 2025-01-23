@@ -1,0 +1,71 @@
+# Настройка проекта
+
+Следуйте инструкциям ниже, чтобы настроить проект на вашей локальной машине.
+
+Можно настроить проект локально или просто запустить докер компоус
+
+## Требования
+
+- Python 3.8.20
+- Redis
+- MySQL
+- Docker и Docker Compose
+
+---
+
+## Шаги установки
+
+### 1. Клонируйте репозиторий
+
+1. Запустите Docker Compose:
+      docker-compose up -d
+   
+2. Примените фикстуры, это необязятельно можно создать данные использую POST запрос:
+      python venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   python fixtures.py
+   
+
+### 2. Запуск приложения(Необязятельно. Только если решили запускать локально!)
+
+1. Запустите Celery worker:
+      celery -A your_project_name worker --loglevel=info
+   
+2. Запустите Celery Beat:
+      celery -A your_project_name beat --loglevel=info
+   
+3. Запустите FastAPI приложение:
+      uvicorn main:app --reload
+   
+
+---
+
+## Доступ к приложению
+
+После запуска вы можете получить доступ к приложению по адресу:
+http://127.0.0.1:8000
+
+Тестирование API с помощью cURL
+
+Создание пользователя
+curl -X POST "http://127.0.0.1:8000/users/" -H "Content-Type: application/json" -d '{"username": "testuser", "email": "testuser@example.com"}'
+Получение списка пользователей
+curl -X GET "http://127.0.0.1:8000/users/" -H "Content-Type: application/json"
+Получение конкретного пользователя по ID
+curl -X GET "http://127.0.0.1:8000/users/1" -H "Content-Type: application/json"
+Скачивание отчёта о пользователях
+curl -X GET "http://127.0.0.1:8000/reports/download" -o users_report.txt
+Основные команды управления Celery
+---
+
+## Конфигурация периодической задачи
+
+Чтобы создать отчет о пользователях каждые 30 минут. 30 минут слишком долго так что я сделал каждые 10 секунд для проверки.
+
+---
+
+## Решение распространенных проблем
+
+1. Ошибка подключения к базе данных:
+   Проверьте настройки в файле .env и убедитесь, что MySQL работает в контейнере Docker.
