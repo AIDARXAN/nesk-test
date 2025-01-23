@@ -18,44 +18,59 @@
 ### 1. Клонируйте репозиторий
 
 1. Запустите Docker Compose:
+   ```bash
       docker-compose up -d
-   
+   ```
 2. Примените фикстуры, это необязятельно можно создать данные использую POST запрос:
-      python venv venv
+   ```bash
+   python venv venv
    source venv/bin/activate
    pip install -r requirements.txt
    python fixtures.py
-   
+   ```
 
 ### 2. Запуск приложения(Необязятельно. Только если решили запускать локально!)
 
 1. Запустите Celery worker:
-      celery -A your_project_name worker --loglevel=info
-   
+   ```bash
+   celery -A your_project_name worker --loglevel=info
+   ```
 2. Запустите Celery Beat:
-      celery -A your_project_name beat --loglevel=info
-   
+   ```bash
+   celery -A your_project_name beat --loglevel=info
+   ```
 3. Запустите FastAPI приложение:
-      uvicorn main:app --reload
-   
+   ```bash
+   uvicorn main:app --reload
+   ```
 
 ---
 
 ## Доступ к приложению
 
 После запуска вы можете получить доступ к приложению по адресу:
+```bash
 http://127.0.0.1:8000
+```
 
 Тестирование API с помощью cURL
 
 Создание пользователя
+```bash
 curl -X POST "http://127.0.0.1:8000/users/" -H "Content-Type: application/json" -d '{"username": "testuser", "email": "testuser@example.com"}'
+```
 Получение списка пользователей
+```bash
 curl -X GET "http://127.0.0.1:8000/users/" -H "Content-Type: application/json"
+```
 Получение конкретного пользователя по ID
+```bash
 curl -X GET "http://127.0.0.1:8000/users/1" -H "Content-Type: application/json"
+```
 Скачивание отчёта о пользователях
+```bash
 curl -X GET "http://127.0.0.1:8000/reports/download" -o users_report.txt
+```
 Основные команды управления Celery
 ---
 
