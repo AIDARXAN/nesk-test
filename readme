@@ -54,20 +54,20 @@ http://127.0.0.1:8000
 ```
 
 Тестирование API с помощью cURL
-
-Создание пользователя
+--
+ - Создание пользователя
 ```bash
 curl -X POST "http://127.0.0.1:8000/users/" -H "Content-Type: application/json" -d '{"username": "testuser", "email": "testuser@example.com"}'
 ```
-Получение списка пользователей
+ - Получение списка пользователей
 ```bash
 curl -X GET "http://127.0.0.1:8000/users/" -H "Content-Type: application/json"
 ```
-Получение конкретного пользователя по ID
+  - Получение конкретного пользователя по ID
 ```bash
 curl -X GET "http://127.0.0.1:8000/users/1" -H "Content-Type: application/json"
 ```
-Скачивание отчёта о пользователях
+ - Скачивание отчёта о пользователях
 ```bash
 curl -X GET "http://127.0.0.1:8000/reports/download" -o users_report.txt
 ```
